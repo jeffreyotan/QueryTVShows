@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col">
+        <h2>The list of TV Shows are:</h2>
+        <ul>
+            {{#if hasShows}}
+                {{#each tvShow}}
+                    <li><a href="/app/{{this.tvid}}">{{this.name}}</a></li>
+                {{/each}}
+            {{else}}
+                <li>No shows were found!</li>
+            {{/if}}
+        </ul>
+    </div>
+</div>
