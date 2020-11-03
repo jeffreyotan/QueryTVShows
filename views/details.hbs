@@ -1,17 +1,27 @@
 <div class="row">
-    <div class="col">
-        <h2>Results of the search are as follows:</h2>
-        <ul>
-            <li>Name: {{tvName}}</li>
-            <li>Rating: {{tvRating}}</li>
-            <li><img src={{tvImage}} alt="TV Image"></li>
-            <li>Summary: {{{tvSummary}}}</li>
-            <li><a href={{tvSite}}>Official Site</a></li>
-        </ul>
+    <div class="col-4">
+        <img src={{tvImage}} alt="TV Image">
     </div>
-</div>
-<div class="row">
     <div class="col">
-        <a href="/">Back</a>
+        <div class="row">
+            <div class="col">
+                <h2>{{tvName}}</h2>
+                <h4>Summary</h4>
+                {{{tvSummary}}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h6>Rating: {{tvRating}}</h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <button class="btn btn-dark"><a href="/">Back</a></button>
+            </div>
+            <div class="col">
+                <button class="btn btn-warning"><a href={{tvSite}}>Official Site</a></button>
+            </div>
+        </div>
     </div>
 </div>
