@@ -7,11 +7,11 @@ const mysql = require('mysql2/promise');
 const PORT = parseInt(process.argv[2]) || parseInt(process.env.PORT) || 3000;
 
 // SQL commands
-const SQL_QUERY_TV_NAMES_DESC = "select tvid, name from tv_shows order by name desc limit ?";
+const SQL_QUERY_TV_NAMES_DESC = "select tvid, name from tv_shows order by name desc limit ? offset ?";
 const SQL_GET_TV_DETAILS_BY_ID = "select * from tv_shows where tvid like ?";
 
 // define global constants
-const QUERYLIMIT = parseInt(process.env.DB_QUERY_LIMIT) || 50;
+const QUERYLIMIT = parseInt(process.env.DB_QUERY_LIMIT) || 20;
 
 // create an instance of express
 const app = express();
@@ -70,16 +70,24 @@ const startApp = async (newApp, newPool) => {
 };
 
 app.get('/', async (req, res, next) => {
+    let currOffset = parseInt(req.params['offset']) || 0
+
+    if(req.query['btnPressed'] === 'prev') {
+        currOffset -= Math.max(0, OFFSETINTERVAL);
+    } else if(req.query['btnPressed'] === 'next') {
+        currOffset += OFFSETINTERVAL;
+    }
+
     // const conn = await pool.getConnection();
 
     try {
         // const results = await conn.query(SQL_QUERY_TV_NAMES_DESC, [QUERYLIMIT]);
-        const tvPrograms = await getTVList([QUERYLIMIT]);
+        const tvPrograms = await getTVList([QUERYLIMIT, currOffset]);
 
         res.format({
             default: () => {
                 res.status(200).type('text/html');
-                res.render('index', { hasShows: tvPrograms.length > 0, tvShow: tvPrograms });
+                res.render('index', { hasShows: tvPrograms.length > 0, tvShow: tvPrograms, offset: currOffset });
             }
         });
     } catch(e) {
