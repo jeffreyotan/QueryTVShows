@@ -21,11 +21,11 @@ app.engine('hbs', handlebars({ defaultLayout: 'default.hbs' }));
 app.set('view engine', 'hbs');
 
 const pool = mysql.createPool({
-    host: process.env.DB_HOST || 'localhost',
+    host: process.env.DB_HOST || 'db4free.net',
     port: parseInt(process.env.DB_PORT) || 3306,
     user: process.env.DB_USER,
     password: process.env.DB_PW,
-    database: process.env.DB_NAME || 'leisure',
+    database: process.env.DB_NAME || 'jtano_leisure_db',
     connectionLimit: parseInt(process.env.DB_CONNECTION_LIMIT) || 4,
     timezone: '+08:00'
 });
@@ -65,7 +65,7 @@ const startApp = async (newApp, newPool) => {
             console.info(`Server was started at port ${PORT} on ${new Date()}`);
         });
     } catch(e) {
-        console.error("Cannot ping databse.. ", e);
+        console.error("Cannot ping database.. ", e);
     }
 };
 
