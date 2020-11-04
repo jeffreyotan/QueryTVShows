@@ -70,13 +70,15 @@ const startApp = async (newApp, newPool) => {
 };
 
 app.get('/', async (req, res, next) => {
-    let currOffset = parseInt(req.params['offset']) || 0
+    let currOffset = parseInt(req.query['offset']) || 0;
+    console.info("Current Offset: ", currOffset);
 
     if(req.query['btnPressed'] === 'prev') {
-        currOffset -= Math.max(0, OFFSETINTERVAL);
+        currOffset = Math.max(0, currOffset - QUERYLIMIT);
     } else if(req.query['btnPressed'] === 'next') {
-        currOffset += OFFSETINTERVAL;
+        currOffset += QUERYLIMIT;
     }
+    console.info("New Current Offset: ", currOffset);
 
     // const conn = await pool.getConnection();
 

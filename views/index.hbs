@@ -6,8 +6,8 @@
                 {{#each tvShow}}
                     <li><a href="/app/{{this.tvid}}">{{this.name}}</a></li>
                 {{/each}}
-                <div class="row justify-content-md-center">
-                    <form method="GET" action="/search">
+                <div class="row">
+                    <form method="GET" action="/">
                         <button type="submit" name="btnPressed" value="prev">Prev</button>
                         <button type="submit" name="btnPressed" value="next">Next</button>
                         <input type="hidden" name="offset" value="{{offset}}">
